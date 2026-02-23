@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./navigation/home";
+import Home from "./public/home";
 import "../style/App.css";
-import Login from "./navigation/login";
-import SignUp from "./navigation/SignUp";
-import UserDashboard from "./navigation/subnavigation/dashboard/Main";
+import Login from "./public/out/login";
+import SignUp from "./public/out/SignUp";
+import UserDashboard from "./private/dashboard/Main";
 import ProtectedRoute from "../_services/tsxServices/ProtectedRoute";
 
 export default function App() {
@@ -13,11 +13,14 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <UserDashboard/>
-          </ProtectedRoute>
-        } />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <UserDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

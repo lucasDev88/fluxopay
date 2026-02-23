@@ -1,14 +1,12 @@
-import Stat from "../../../../components/utils/Stat"
-import Box from "../../../../components/utils/Box"
+import Stat from "../../../components/utils/Stat";
+import Box from "../../../components/utils/Box";
 
 export default function AdminDashboard() {
   return (
     <div className="space-y-8 text-white">
       <div>
         <h1 className="text-3xl font-bold">Admin • Visão Geral</h1>
-        <p className="text-slate-400">
-          Métricas globais da plataforma
-        </p>
+        <p className="text-slate-400">Métricas globais da plataforma</p>
       </div>
 
       <div className="grid md:grid-cols-4 gap-6">
@@ -26,11 +24,9 @@ export default function AdminDashboard() {
         </Box>
 
         <Box title="Alertas">
-          <p className="text-yellow-400">
-            2 contas com comportamento suspeito
-          </p>
+          <p className="text-yellow-400">2 contas com comportamento suspeito</p>
         </Box>
       </div>
     </div>
-  )
+  );
 }

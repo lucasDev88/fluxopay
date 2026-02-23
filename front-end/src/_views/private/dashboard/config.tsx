@@ -1,8 +1,8 @@
-import "../../../../style/App.css"
-import { Card } from "../../../../components/utils/Card";
-import { CardContent } from "../../../../components/utils/CardContent";
-import Button from "../../../../components/utils/Button";
-import { Input } from "../../../../components/utils/Input";
+import "../../../../style/App.css";
+import { Card } from "../../../components/utils/Card";
+import { CardContent } from "../../../components/utils/CardContent";
+import Button from "../../../components/utils/Button";
+import { Input } from "../../../components/utils/Input";
 
 function SettingsTab() {
   return (
@@ -57,4 +57,4 @@ function SettingsTab() {
   );
 }
 
-export default SettingsTab
+export default SettingsTab;

@@ -1,17 +1,15 @@
-import { plans } from "../../../../components/home/data/Planos"
+import { plans } from "../../../components/home/data/Planos";
 
 export default function AdminPlans() {
   return (
     <div className="space-y-8 text-white">
       <div>
         <h1 className="text-3xl font-bold">Admin • Planos</h1>
-        <p className="text-slate-400">
-          Configuração de planos e recursos
-        </p>
+        <p className="text-slate-400">Configuração de planos e recursos</p>
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
-        {plans.map(p => (
+        {plans.map((p) => (
           <div
             key={p.name}
             className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4"
@@ -34,5 +32,5 @@ export default function AdminPlans() {
         ))}
       </div>
     </div>
-  )
+  );
 }
