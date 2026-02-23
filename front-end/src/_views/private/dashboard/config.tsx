@@ -1,4 +1,4 @@
-import "../../../../style/App.css";
+import "@/style/App.css";
 import { Card } from "../../../components/utils/Card";
 import { CardContent } from "../../../components/utils/CardContent";
 import Button from "../../../components/utils/Button";
