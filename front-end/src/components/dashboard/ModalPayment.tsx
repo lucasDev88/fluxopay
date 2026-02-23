@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { createPayment } from "../../_api/payments";
+import { createPayment } from "../../_views/payments";
 
 interface Props {
   open: boolean;

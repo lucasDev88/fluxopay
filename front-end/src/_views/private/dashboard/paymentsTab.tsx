@@ -1,7 +1,7 @@
 import { SquarePen } from "lucide-react";
 import { useEffect, useState } from "react";
 import PaymentModal from "../../../components/dashboard/ModalPayment";
-import { getPayments } from "../../../_api/payments";
+import { getPayments } from "../../payments";
 import type { Payment } from "../../../_services/types/Payments";
 
 export default function PagamentosTab() {
