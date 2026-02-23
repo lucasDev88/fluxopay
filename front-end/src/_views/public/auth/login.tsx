@@ -1,5 +1,5 @@
 import CardLogin from "../../../components/login/Card";
-import "../../../style/App.css";
+import "@/style/App.css";
 
 export default function Login() {
   return (
