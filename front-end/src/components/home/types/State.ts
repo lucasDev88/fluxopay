@@ -1,0 +1,1 @@
+export type State = "Aprovado" | "Pendente" | "Recusado"
