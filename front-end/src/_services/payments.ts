@@ -1,4 +1,4 @@
-import { api } from "../_services/api"
+import { api } from "./api"
 import type { State } from "../components/home/types/State";
 
 export async function createPayment(data: { name: string; price: number, situation: State}) {
