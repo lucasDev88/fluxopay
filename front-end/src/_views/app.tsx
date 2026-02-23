@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./public/home";
 import "../style/App.css";
-import Login from "./public/out/login";
-import SignUp from "./public/out/SignUp";
+import Login from "./public/auth/login";
+import SignUp from "./public/auth/SignUp";
 import UserDashboard from "./private/dashboard/Main";
 import ProtectedRoute from "../_services/tsxServices/ProtectedRoute";
 
