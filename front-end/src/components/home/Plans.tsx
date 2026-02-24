@@ -10,7 +10,7 @@ const stats = [
 export default function Plans() {
   return (
     <section
-      id="plans"
+      id="planos"
       className="py-24 text-white bg-blue-950 overflow-hidden"
     >
       <div className="justify-center items-center text-center">

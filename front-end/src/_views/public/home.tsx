@@ -1,3 +1,4 @@
+import Coments from "@/components/home/Coments"
 import Header from "@/components/home/Header"
 import { Hero } from "@/components/home/Hero"
 import Plans from "@/components/home/Plans"
@@ -12,6 +13,7 @@ export default function Home() {
             <main>
                 <Hero />
                 <Plans />
+                <Coments />
             </main>
 
         </div>
