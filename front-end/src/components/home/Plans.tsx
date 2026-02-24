@@ -1,4 +1,5 @@
-import PlansCarousel from "./subcomponents/PlansCarrosel";
+import PlanCard from "./subcomponents/planCard";
+import { plans } from "./data/Planos";
 
 const stats = [
   { value: "10k+", label: "Clientes Ativos" },
@@ -17,7 +18,15 @@ export default function Plans() {
         <p className="text-white py-4 text-5xl font-serif">PLANOS</p>
       </div>
 
-      <PlansCarousel />
+      <div className="justify-center items-center text-center grid md:grid-cols-4">
+        {plans.map((plan) => {
+          return (
+            <div key={plan.name} className="w-full shrink-0 p-4">
+              <PlanCard plan={plan} />
+            </div>
+          );
+        })}
+      </div>
 
       <br />
       <br />
