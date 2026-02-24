@@ -1,9 +1,10 @@
 package middleware
 
 import (
-	"strings"
-	"github.com/gin-gonic/gin"
 	"fintech-api/utils"
+	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Auth() gin.HandlerFunc {
@@ -31,9 +32,14 @@ func Auth() gin.HandlerFunc {
 			return
 		}
 
-		uid := claims["uid"].(string)
+		uid, ok := claims["uid"].(string)
+		if !ok {
+			c.AbortWithStatusJSON(401, gin.H{"error": "invalid token claims"})
+			return
+		}
 
 		c.Set("userID", uid)
+		c.Set("claims", claims)
 		c.Next()
 	}
 }

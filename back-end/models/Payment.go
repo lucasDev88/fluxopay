@@ -2,17 +2,22 @@ package models
 
 import (
 	"time"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+
+	"gorm.io/gorm"
 )
 
 type Payment struct {
-	ID     primitive.ObjectID `bson:"_id,omitempty" json:"id"`
-	UserID primitive.ObjectID `bson:"user_id" json:"user_id"`
+	ID uint `gorm:"primaryKey" json:"id"`
 
-	Name   string `bson:"name" json:"name"`
-	Price  int    `bson:"price" json:"price"`
+	// user id stored as uuid string to match User.ID
+	UserID string `gorm:"type:uuid;not null;index" json:"user_id"`
 
-	CreatedAt time.Time `bson:"created_at" json:"created_at"`
+	Name  string `gorm:"type:varchar(100);not null" json:"name"`
+	Price int    `gorm:"not null" json:"price"`
 
-	Situation string `bson:"situation" json:"situation"`
+	Situation string `gorm:"type:varchar(50);not null" json:"situation"`
+
+	CreatedAt time.Time      `json:"created_at"`
+	UpdatedAt time.Time      `json:"updated_at"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
 }

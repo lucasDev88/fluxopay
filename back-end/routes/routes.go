@@ -1,8 +1,9 @@
 package routes
 
 import (
-	"fintech-api/handlers"
+	handlers "fintech-api/controllers"
 	"fintech-api/middleware"
+
 	"github.com/gin-gonic/gin"
 )
 
