@@ -1,73 +1,171 @@
-# React + TypeScript + Vite
+<h1 align="center">🚀 FluxoPay</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <strong>Intelligent Revenue Engine for Variable Income Businesses</strong>
+</p>
 
-Currently, two official plugins are available:
+<p align="center">
+  SaaS platform focused on financial predictability, cash flow intelligence and revenue stability.
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<p align="center">
+  <img src="https://img.shields.io/badge/status-MVP%20In%20Development-blue" />
+  <img src="https://img.shields.io/badge/backend-Go-green" />
+  <img src="https://img.shields.io/badge/frontend-React-blue" />
+  <img src="https://img.shields.io/badge/database-PostgreSQL-blue" />
+  <img src="https://img.shields.io/badge/license-Private-black" />
+</p>
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<h2>🧠 Vision</h2>
 
-## Expanding the ESLint configuration
+<p>
+FluxoPay is not just a payment tracker.
+It is a <strong>Revenue Intelligence Platform</strong> designed to help freelancers,
+creators and micro-businesses gain predictability over unstable income.
+</p>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+<p>
+We aim to become the <strong>financial stability layer for the new generation of digital workers</strong>.
+</p>
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+<h2>🚨 Problem</h2>
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+<ul>
+  <li>Freelancers face unpredictable monthly income</li>
+  <li>No intelligent forecasting tools for micro businesses</li>
+  <li>Lack of cash flow visibility</li>
+  <li>No risk alerts before financial instability</li>
+</ul>
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+<h2>💡 Solution</h2>
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+<p>
+FluxoPay introduces a <strong>Revenue Intelligence Engine</strong> that:
+</p>
+
+<ul>
+  <li>Predicts future income (30/60/90 days)</li>
+  <li>Detects cash flow decline</li>
+  <li>Calculates revenue stability score</li>
+  <li>Simulates revenue drop scenarios</li>
+  <li>Automates collection workflows</li>
+</ul>
+
+---
+
+<h2>📊 Product Layers</h2>
+
+<h3>🟢 Free – Essential Control</h3>
+<ul>
+  <li>Payment tracking</li>
+  <li>Revenue categories</li>
+  <li>Monthly dashboard</li>
+  <li>Basic revenue trend</li>
+  <li>Stability score (basic)</li>
+</ul>
+
+<h3>🔵 Pro – Intelligent Cash Flow</h3>
+<ul>
+  <li>Revenue forecasting</li>
+  <li>Cash flow risk alerts</li>
+  <li>Seasonality detection</li>
+  <li>Automated reminders</li>
+  <li>AI-powered financial report</li>
+</ul>
+
+<h3>🟣 Business – Revenue Engine</h3>
+<ul>
+  <li>Multi-scenario forecasting</li>
+  <li>Client risk scoring</li>
+  <li>Payment probability model</li>
+  <li>Tax projection</li>
+  <li>Strategic revenue insights</li>
+</ul>
+
+<h3>🟡 Creator+</h3>
+<ul>
+  <li>Multi-income tracking</li>
+  <li>Channel profitability analysis</li>
+  <li>Revenue goal prediction</li>
+</ul>
+
+---
+
+<h2>🏗 Architecture</h2>
+
+<pre>
+fluxopay/
+ ├── frontend/   (React + TypeScript + Vite)
+ ├── backend/    (Go + Gin + PostgreSQL + GORM)
+ └── infrastructure/
+</pre>
+
+---
+
+<h2>🔐 Technology Stack</h2>
+
+<ul>
+  <li><strong>Backend:</strong> Go (Gin), PostgreSQL, GORM</li>
+  <li><strong>Frontend:</strong> React, TypeScript, TailwindCSS</li>
+  <li><strong>Authentication:</strong> JWT</li>
+  <li><strong>Architecture:</strong> Modular Monorepo</li>
+</ul>
+
+---
+
+<h2>📈 Market Opportunity</h2>
+
+<p>
+The creator economy and freelance market are growing globally.
+Millions of professionals operate without financial predictability tools.
+</p>
+
+<p>
+FluxoPay positions itself as a <strong>financial intelligence SaaS for income stability</strong>.
+</p>
+
+---
+
+<h2>🚀 Roadmap</h2>
+
+<ul>
+  <li>MVP – Revenue tracking + stability score</li>
+  <li>AI forecasting engine</li>
+  <li>Automated collection system</li>
+  <li>Advanced financial simulation</li>
+</ul>
+
+---
+
+<h2>🤝 Investment Vision</h2>
+
+<p>
+FluxoPay aims to evolve into:
+</p>
+
+<ul>
+  <li>Revenue Predictability Platform</li>
+  <li>Financial Risk Intelligence API</li>
+  <li>Embedded Finance for Creators</li>
+</ul>
+
+---
+
+<h2>👨‍💻 Founder</h2>
+
+<p>
+Lucas Felipe<br/>
+SaaS Builder | Revenue Intelligence Vision
+</p>
+
+---
+
+<p align="center">
+  <strong>Building the financial stability layer for the future of work.</strong>
+</p>
