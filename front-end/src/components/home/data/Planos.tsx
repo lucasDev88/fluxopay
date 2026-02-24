@@ -1,4 +1,4 @@
-import type { Plan } from "../types/Plan"
+import type { Plan } from "../types/Plan";
 
 export const plans: Plan[] = [
   {
@@ -14,8 +14,7 @@ export const plans: Plan[] = [
       "Histórico de transações",
       "Tendência de receita (simples)",
       "Média mensal automática",
-      "Aperte o botão para ver mais"
-
+      "Aperte o botão para ver mais",
     ],
   },
   {
@@ -24,48 +23,48 @@ export const plans: Plan[] = [
     desc: "Indicado para freelancers",
     highlight: false,
     button: "Assinar PRO",
-features: [
-  "Tudo do plano Free +",
-  "Previsão de renda (30 / 60 / 90 dias)",
-  "Detecção de queda de fluxo",
-  "Alertas de risco de caixa",
-  "Projeção financeira",
-  "Score de estabilidade avançado",
-  "Detecção de sazonalidade",
-  "Aperte o botão para ver mais",
-],
+    features: [
+      "Tudo do plano Free +",
+      "Previsão de renda (30 / 60 / 90 dias)",
+      "Detecção de queda de fluxo",
+      "Alertas de risco de caixa",
+      "Projeção financeira",
+      "Score de estabilidade avançado",
+      "Detecção de sazonalidade",
+      "Aperte o botão para ver mais",
+    ],
   },
-{
-  name: "Buisness",
-  price: "R$78.99",
-  desc: "Escala total",
-  button: "Assinar Buisness",
-  highlight: true,
-  features: [
-    "Tudo do plano Pro +",
-    "Previsão com múltiplos cenários",
-    "Simulação de queda de receita (%)",
-    "Projeção de caixa futura",
-    "Detecção de risco de inadimplência",
-    "Score de risco de clientes",
-    "Régua de cobrança completa",
-    "Aperte o botão para ver mais",
-  ],
-},
-{
-  name:"Creator +",
-  price: "R$ 38,99",
-  desc: "Indicado para microempreendedores",
-  button: "Assinar Creator +",
-features: [
-  "Tudo do plano Pro +",
-  "Tracking de múltiplas fontes de renda",
-  "Gestão de canais de receita",
-  "Score de estabilidade por canal",
-  "Comparação de fontes",
-  "Metas de renda",
-  "Progresso automático de metas",
-  "Aperte o botão para ver mais",
-]
-}
-]
+  {
+    name: "Buisness",
+    price: "R$78.99",
+    desc: "Escala total",
+    button: "Assinar Buisness",
+    highlight: true,
+    features: [
+      "Tudo do plano Pro +",
+      "Previsão com múltiplos cenários",
+      "Simulação de queda de receita (%)",
+      "Projeção de caixa futura",
+      "Detecção de risco de inadimplência",
+      "Score de risco de clientes",
+      "Régua de cobrança completa",
+      "Aperte o botão para ver mais",
+    ],
+  },
+  {
+    name: "Creator +",
+    price: "R$ 38,99",
+    desc: "Indicado para microempreendedores",
+    button: "Assinar Creator +",
+    features: [
+      "Tudo do plano Pro +",
+      "Tracking de múltiplas fontes de renda",
+      "Gestão de canais de receita",
+      "Score de estabilidade por canal",
+      "Comparação de fontes",
+      "Metas de renda",
+      "Progresso automático de metas",
+      "Aperte o botão para ver mais",
+    ],
+  },
+];
