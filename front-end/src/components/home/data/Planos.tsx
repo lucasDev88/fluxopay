@@ -7,18 +7,13 @@ export const plans: Plan[] = [
     desc: "Ideal para começar",
     button: "Começar grátis",
     features: [
-      "Registro de pagamentos e receitas",
+      "Registro de pagamentos e receitas manuais",
       "Categorias de renda",
       "Dashboard simples",
       "Gráfico mensal",
       "Histórico de transações",
       "Tendência de receita (simples)",
       "Média mensal automática",
-      "Score básico de estabilidade",
-      "Status de pagamento",
-      "Lembretes manuais de cobrança",
-      "Resumo mensal",
-      "Exportação CSV",
       "Aperte o botão para ver mais"
 
     ],
@@ -37,9 +32,6 @@ features: [
   "Projeção financeira",
   "Score de estabilidade avançado",
   "Detecção de sazonalidade",
-  "Sugestão de preço por ticket médio",
-  "Análise de variação de receita",
-  "Lembretes automáticos de cobrança",
   "Aperte o botão para ver mais",
 ],
   },
@@ -57,10 +49,6 @@ features: [
     "Detecção de risco de inadimplência",
     "Score de risco de clientes",
     "Régua de cobrança completa",
-    "Sequência automática de mensagens",
-    "Status por estágio de cobrança",
-    "Probabilidade de pagamento",
-    "Sugestão de metas de receita",
     "Aperte o botão para ver mais",
   ],
 },
@@ -77,11 +65,7 @@ features: [
   "Comparação de fontes",
   "Metas de renda",
   "Progresso automático de metas",
-  "Previsão de meta atingida",
-  "Canal mais rentável",
-  "Canal mais instável",
   "Aperte o botão para ver mais",
-  "",
 ]
 }
 ]
