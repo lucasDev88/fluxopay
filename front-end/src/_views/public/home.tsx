@@ -1,7 +1,7 @@
-import Header from "../../components/home/Header"
-import { Hero } from "../../components/home/Hero"
-import Plans from "../../components/home/Plans"
-import "../../style/App.css"
+import Header from "@/components/home/Header"
+import { Hero } from "@/components/home/Hero"
+import Plans from "@/components/home/Plans"
+import "@/style/App.css"
 
 export default function Home() {
     return (

@@ -1,13 +1,13 @@
 import "@/style/App.css";
 import { motion } from "framer-motion";
-import StatCard from "../../../components/dashboard/StatCard";
-import { Card } from "../../../components/utils/Card";
-import { CardContent } from "../../../components/utils/CardContent";
-import RecentTransactions from "../../../components/dashboard/RecentTransactions";
-import Button from "../../../components/utils/Button";
-import PlanBox from "../../../components/dashboard/PlanBox";
-import ClientsChart from "../../../components/dashboard/ClientesChart";
-import PaymentModal from "../../../components/dashboard/ModalPayment";
+import StatCard from "@/components/dashboard/StatCard.tsx";
+import { Card } from "@/components/utils/Card";
+import { CardContent } from "@/components/utils/CardContent";
+import RecentTransactions from "@/components/dashboard/RecentTransactions";
+import Button from "@/components/utils/Button";
+import PlanBox from "@/components/dashboard/PlanBox";
+import ClientsChart from "@/components/dashboard/ClientesChart";
+import PaymentModal from "@/components/dashboard/ModalPayment";
 
 import { useEffect, useState } from "react";
 import { getUsername } from "../../../_services/user";

@@ -1,4 +1,4 @@
-import { plans } from "../../../components/home/data/Planos";
+import { plans } from "@/components/home/data/Planos";
 
 export default function AdminPlans() {
   return (
