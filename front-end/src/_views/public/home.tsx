@@ -1,3 +1,4 @@
+import { Benefits } from "@/components/home/benefits"
 import Coments from "@/components/home/Coments"
 import Header from "@/components/home/Header"
 import { Hero } from "@/components/home/Hero"
@@ -14,6 +15,7 @@ export default function Home() {
                 <Hero />
                 <Plans />
                 <Coments />
+                <Benefits />
             </main>
 
         </div>
