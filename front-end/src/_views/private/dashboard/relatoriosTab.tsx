@@ -1,3 +1,5 @@
+import MonthlyChart from "@/components/dashboard/MonthlyChart";
+
 export default function RelatoriosTab() {
   return (
     <div className="space-y-6 text-white">
@@ -23,10 +25,14 @@ export default function RelatoriosTab() {
         </div>
       </div>
 
-      <div className="bg-slate-900 rounded-2xl p-6 border border-slate-800">
+      <div className="bg-slate-900 rounded-2xl p-6 border border-slate-800 hidden">
         <p className="text-slate-400">
-          Exportação de relatórios e gráficos detalhados disponíveis nos planos Premium.
+          Exportação de relatórios e gráficos detalhados disponíveis nos planos PRO +.
         </p>
+      </div>
+
+      <div className="bg-slate-900 rounded-2xl p-6 border-slate-800 ">
+        <MonthlyChart />
       </div>
     </div>
   )
