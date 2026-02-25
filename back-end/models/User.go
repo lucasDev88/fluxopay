@@ -5,7 +5,7 @@ import "time"
 //ESTRUTURA PRINCIPAL DO BANCO
 
 type User struct {
-    ID        	 string    `sql:"type:uuid;primary_key;default:uuid_generate_v4()" json:"id"`
+	ID 			 string    `json:"id" gorm:"type:uuid;default:uuid_generate_v4();primaryKey"`
 	Name         string    `json:"name" gorm:"not null" binding:"min=2, max=100"`
 	Email        string    `json:"email" gorm:"unique;not null"`
 	Password     string    `json:"-" gorm:"not null" binding:"min=7, max=30"`
