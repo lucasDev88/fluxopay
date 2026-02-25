@@ -1,5 +1,5 @@
-import Stat from "../../../components/utils/Stat";
-import Box from "../../../components/utils/Box";
+import Stat from "@/components/utils/Stat";
+import Box from "@/components/utils/Box";
 
 export default function AdminDashboard() {
   return (

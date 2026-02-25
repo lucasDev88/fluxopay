@@ -1,5 +1,5 @@
-import { Card } from "../../../components/utils/Card";
-import { CardContent } from "../../../components/utils/CardContent";
+import { Card } from "@/components/utils/Card";
+import { CardContent } from "@/components/utils/CardContent";
 
 export default function AdminPlatform() {
   return (

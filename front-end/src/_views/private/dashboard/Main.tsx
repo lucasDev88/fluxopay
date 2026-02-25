@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import UserSidebar from "../../../components/dashboard/Sidebar";
-import AdminSidebar from "../../../components/dashboard/AdminSidebar";
+import UserSidebar from "@/components/dashboard/Sidebar";
+import AdminSidebar from "@/components/dashboard/AdminSidebar";
 
 import DashboardHome from "./dashboard";
 import SettingsTab from "./config";
