@@ -2,13 +2,24 @@ package main
 
 import (
 	"fintech-api/database"
-	"github.com/gin-contrib/cors"
 	"fintech-api/routes"
+
+	"log"
+
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Erro ao carregar .env")
+	}
+
 	database.Connect()
+
+	// migrations already executed in Connect
 
 	r := gin.Default()
 
