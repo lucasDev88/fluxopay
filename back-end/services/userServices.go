@@ -37,10 +37,11 @@ func CreateUser(cadaster models.SignupDTO) (models.User, error) {
 	}
 
 	user := models.User{
-		Name:     cadaster.Name,
-		Email:    cadaster.Email,
-		Password: passwordHashed,
-		Role:     "user",
+		Name:     	cadaster.Name,
+		Email:    	cadaster.Email,
+		Password: 	passwordHashed,
+		Role:     	"user",
+		Assinature: "free",
 	}
 
 	err := database.DB.Create(&user).Error
