@@ -39,9 +39,20 @@ export default function PagamentosTab() {
 
       <div className="bg-slate-900 rounded-2xl p-6 border border-slate-800">
         {loading && <p className="font-semibold">Carregando...</p>}
-        {error && <p>{error}</p>}
 
-        {pagamentos.map((p) => (
+        {error && <p className="text-red-400">{error}</p>}
+
+        {!loading && !error && pagamentos.length === null && (
+          <div className="text-center py-10 text-slate-400">
+            <p className="">Nenhum pagamento encontrado.</p>
+            <p className="text-sm mt-2">
+              Quando você criar um pagamento, ele aparecerá aqui.
+            </p>
+          </div>
+        )}
+
+        {!loading && !error && pagamentos.length > 0 &&
+        pagamentos.map((p) => (
           <div
             key={p.id}
             className="flex justify-between items-center border-b border-slate-800 py-4"
