@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   LineChart,
@@ -8,34 +8,31 @@ import {
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
-} from "recharts"
+} from "recharts";
+import type { Data } from "./types/TypeDataChart";
 
-const data = [
-  { month: "Jan", revenue: 4200 },
-  { month: "Fev", revenue: 6800 },
-  { month: "Mar", revenue: 5300 },
-  { month: "Abr", revenue: 9100 },
-  { month: "Mai", revenue: 7600 },
-  { month: "Jun", revenue: 10200 },
-]
+type ChartsProps = {
+  data: Data[],
+  name: string
+}
 
-export default function MonthlyChart() {
+export default function Chart({ data, name }: ChartsProps) {
   return (
-    <div className="bg-zinc-900 p-6 rounded-2xl border border-zinc-800">
+    <div className="bg-zinc-900 p-15 mt-5 rounded-2xl border border-zinc-800">
       <h3 className="text-white text-xl font-semibold mb-6">
-        Receita Mensal
+        {name}
       </h3>
 
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-            <XAxis dataKey="month" stroke="#9ca3af" />
+            <XAxis dataKey="Name" stroke="#9ca3af" />
             <YAxis stroke="#9ca3af" />
             <Tooltip />
             <Line
               type="monotone"
-              dataKey="revenue"
+              dataKey="Lucro"
               stroke="#3b82f6"
               strokeWidth={3}
               dot={{ r: 5 }}
@@ -44,5 +41,5 @@ export default function MonthlyChart() {
         </ResponsiveContainer>
       </div>
     </div>
-  )
+  );
 }
