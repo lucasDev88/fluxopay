@@ -12,15 +12,31 @@ import PaymentModal from "@/components/dashboard/ModalPayment";
 import { useEffect, useState } from "react";
 import { getUsername } from "../../../_services/user";
 
+interface Stats {
+  receitaMensal: string;
+  clientesAtivos: string;
+  pagamentos: string;
+  falhas: string;
+}
+
 export default function DashboardHome() {
   const [username, setUsername] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
+  const stats: Stats = {
+    receitaMensal: "R$ 1000,00",
+    clientesAtivos: "5",
+    pagamentos: "10",
+    falhas: "2",
+  };
+  
   useEffect(() => {
     getUsername().then((data) => {
       setUsername(data.username);
     });
+
   }, []);
+
 
   return (
     <>
@@ -39,18 +55,25 @@ export default function DashboardHome() {
       <div className="grid md:grid-cols-4 gap-6">
         <StatCard
           title="Receita mensal"
-          value="R$ 192.302.394"
+          value={stats.receitaMensal}
           desc="+18% vs mês anterior"
         />
         <StatCard
           title="Clientes ativos"
-          value="3103982"
+          value={stats.clientesAtivos}
           desc="+12 novos hoje"
         />
-        <StatCard title="Pagamentos" value="129381098" desc="últimos 30 dias" />
-        <StatCard title="Falhas" value="3" desc="30% taxa" />
+        <StatCard
+          title="Pagamentos"
+          value={stats.pagamentos}
+          desc="últimos 30 dias"
+        />
+        <StatCard
+          title="Falhas"
+          value={stats.falhas}
+          desc="30% taxa"
+        />
       </div>
-
       {/* GRID */}
       <div className="grid lg:grid-cols-2 gap-6">
         <ClientsChart />
