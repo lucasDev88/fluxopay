@@ -19,8 +19,9 @@ export async function loginAuth(data: {
 }) {
     const res = await api.post("/login", data)
 
-    localStorage.setItem("access", res.data.access)
-    localStorage.setItem("refresh", res.data.refresh)
+    console.log("Data recebida", res.data)
+    localStorage.setItem("access", res.data.access_token)
+    localStorage.setItem("refresh", res.data.refresh_token)
 
     return res.data
 }
