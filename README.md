@@ -103,7 +103,6 @@ FluxoPay introduces a <strong>Revenue Intelligence Engine</strong> that:
 fluxopay/
  ├── frontend/   (React + TypeScript + Vite)
  ├── backend/    (Go + Gin + PostgreSQL + GORM)
- └── infrastructure/
 </pre>
 
 ---
