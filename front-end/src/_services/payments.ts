@@ -1,7 +1,7 @@
 import { api } from "./api"
 import type { State } from "../components/home/types/State";
 
-export async function createPayment(data: { name: string; price: number, situation: State}) {
+export async function createPayment(data: { name: string; price: number, description: string, situation: State}) {
   const res = await api.post("/api/payments", data)
   return res.data
 }

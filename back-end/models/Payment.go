@@ -14,6 +14,7 @@ type Payment struct {
 
 	Name  string `gorm:"type:varchar(100);not null" json:"name"`
 	Price int    `gorm:"not null" json:"price"`
+	Description string `gorm:"type:varchar(100);" json:"description"`
 
 	Situation string `gorm:"type:varchar(50);not null" json:"situation"`
 
