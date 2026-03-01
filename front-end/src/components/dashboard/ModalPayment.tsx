@@ -14,6 +14,7 @@ export default function PaymentModal({ open, onClose, onCreated }: Props) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState<number | "">("");
   const [situation, setSituation] = useState<string>("");
+  const [description, setDescription] = useState<string>("")
   const [loading, setLoading] = useState(false);
 
   if (!open) return null;
@@ -33,8 +34,10 @@ export default function PaymentModal({ open, onClose, onCreated }: Props) {
         name,
         price: Number(price),
         situation,
+        description,
       });
 
+      setDescription("")
       setName("");
       setPrice("");
       setSituation("");
@@ -75,7 +78,9 @@ export default function PaymentModal({ open, onClose, onCreated }: Props) {
 
           <input
             type="text"
-            placeholder="Ex: Pendente, Erro ou Pago"
+            placeholder="Descrição"
+            value={description}
+            onChange={ (e) => setDescription(e.target.value) }
             className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-600"
           />
             <Dropdown trigger={
