@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { createPayment } from "../../_services/payments";
+import { CheckCircleIcon, Clock10Icon, XIcon } from "lucide-react"
+import Dropdown from "../utils/Dropdown";
 
 interface Props {
   open: boolean;
@@ -73,12 +75,60 @@ export default function PaymentModal({ open, onClose, onCreated }: Props) {
 
           <input
             type="text"
-            placeholder="Pendente, Erro ou Pago"
-            value={situation}
-            onChange={(e) => setSituation(e.target.value)}
+            placeholder="Ex: Pendente, Erro ou Pago"
             className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-600"
           />
+            <Dropdown trigger={
+              <button id="DropBut" className="bg-slate-800 text-center text-white px-4 py-2 rounded-2xl w-100">
+                Situação
+              </button>
+            } items={[
+              {
+                label: "Aprovado",
+                icon: <CheckCircleIcon size={16} />,
+                onClick: () => {
+                  const but = document.getElementById("DropBut")
+
+                  if (!but) {
+                    return console.log("Botão não encontrado")
+                  }
+
+                  but.textContent = `Aprovado`
+                  setSituation("Aprovado")
+                }
+              },
+              {
+                label: "Pendente",
+                icon: <Clock10Icon size={16} />,
+                onClick: () => {
+                  const but = document.getElementById("DropBut")
+
+                  if (!but) {
+                    return console.log("Botão não encontrado")
+                  }
+
+                  but.textContent = `Pendente`
+                  setSituation("Pendente")
+                }
+              },
+              {
+                label: "Recusado",
+                icon: <XIcon size={16} />,
+                onClick: () => {
+                  const but = document.getElementById("DropBut")
+
+                  if (!but) {
+                    return console.log("Botão não encontrado")
+                  }
+
+                  but.textContent = `Recusado`
+                  setSituation("Recusado")
+                },
+                danger: true
+              }
+            ]}/>
         </div>
+
 
         <div className="flex gap-3 mt-6">
           <button
