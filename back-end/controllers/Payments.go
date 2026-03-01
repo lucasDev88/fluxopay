@@ -27,6 +27,7 @@ func AddPayment(c *gin.Context) {
 	var input struct {
 		Name      string `json:"name" binding:"required"`
 		Price     int    `json:"price" binding:"required"`
+		Description string `json:"description"`
 		Situation string `json:"situation" binding:"required"`
 	}
 
@@ -39,6 +40,7 @@ func AddPayment(c *gin.Context) {
 		UserID:    userID,
 		Name:      input.Name,
 		Price:     input.Price,
+		Description: input.Description,
 		Situation: input.Situation,
 	}
 
