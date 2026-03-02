@@ -39,6 +39,7 @@ func Connect() {
 	err = DB.AutoMigrate(
 		&models.User{},
 		&models.Payment{},
+		&models.Client{},
 	)
 	if err != nil {
 		log.Fatal("Erro na migration:", err)

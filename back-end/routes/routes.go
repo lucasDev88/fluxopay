@@ -20,4 +20,7 @@ func AuthRoutes(r *gin.Engine) {
 		auth.POST("/payments", handlers.AddPayment)
 		auth.GET("/payments", handlers.ListPayments)
 		auth.DELETE("/payments/:id", handlers.DeletePayment)
+		auth.GET("/clients", handlers.ListClients)
+		auth.POST("/clients", handlers.AddClient)
+		auth.DELETE("/clients/:id", handlers.DeleteClient)
 }
