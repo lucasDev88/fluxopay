@@ -1,6 +1,6 @@
 import { SquarePen } from "lucide-react";
 import { useEffect, useState } from "react";
-import PaymentModal from "@/components/dashboard/ModalPayment";
+import PaymentsForm from "@/components/dashboard/PaymentsForm"
 import { getPayments } from "@/_services/payments";
 import type { Payment } from "@/_services/types/Payments";
 
@@ -97,7 +97,7 @@ export default function PagamentosTab() {
           ))}
       </div>
 
-      <PaymentModal
+      <PaymentsForm
         open={openModal}
         onClose={() => setOpenModal(false)}
         onCreated={() => {

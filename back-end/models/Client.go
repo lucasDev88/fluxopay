@@ -10,6 +10,7 @@ type Client struct {
 	UserID string `gorm:"type:uuid;not null;index" json:"user_id"`
 
 	Name string `gorm:"type:varchar(100);not null" json:"name"`
+	Email string `gorm:"type:varchar(100);not null;unique" json:"email"`
 
 	Situation string `gorm:"type:varchar(30);not null" json:"situation"`
 

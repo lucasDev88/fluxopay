@@ -1,9 +1,9 @@
-import type { State } from "../../components/home/types/State"
+import type { StatePayment } from "../../components/home/types/State"
 
 export type Payment = {
-    id: string,
+    id: string
     name: string,
     price: number,
     description: string
-    situation: State
+    situation: StatePayment
 }
