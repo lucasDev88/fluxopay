@@ -7,7 +7,7 @@ import RecentTransactions from "@/components/dashboard/RecentTransactions";
 import Button from "@/components/utils/Button";
 import PlanBox from "@/components/dashboard/PlanBox";
 import ClientsChart from "@/components/dashboard/ClientesChart";
-import PaymentModal from "@/components/dashboard/ModalPayment";
+import PaymentModal from "@/components/dashboard/PaymentsForm";
 
 import { useEffect, useState } from "react";
 import { getUsername } from "../../../_services/user";

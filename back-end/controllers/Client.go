@@ -28,6 +28,7 @@ func AddClient(c *gin.Context) {
 
 	var input struct {
 		Name	string `json:"name" binding:"required"`
+		Email	string `json:"email" binding:"required"`
 		Situation string `json:"situation" binding:"required"`
 	}
 
@@ -41,6 +42,7 @@ func AddClient(c *gin.Context) {
 	client := models.Client{
 		UserID:	userID,
 		Name: input.Name,
+		Email: input.Email,
 		Situation: input.Situation,
 	}
 
