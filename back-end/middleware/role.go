@@ -2,17 +2,19 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v5"
 )
 
-func AdminOnly() gin.HandlerFunc {
+func RequireRole(role string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		claims := c.MustGet("claims").(jwt.MapClaims)
-		if claims["role"] != "admin" {
-			c.AbortWithStatus(403)
+
+		userRole, exists := c.Get("role")
+
+		if !exists || userRole.(string) != role {
+			c.JSON(403, gin.H{"error": "acesso negado"})
+			c.Abort()
 			return
 		}
+
 		c.Next()
 	}
 }
-

@@ -25,3 +25,15 @@ export async function loginAuth(data: {
 
     return res.data
 }
+
+export function getUserFromToken() {
+  const token = localStorage.getItem("access")
+  if (!token) return null
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]))
+    return payload
+  } catch {
+    return null
+  }
+}

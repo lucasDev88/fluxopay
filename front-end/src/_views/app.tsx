@@ -5,6 +5,8 @@ import Login from "./public/auth/login";
 import SignUp from "./public/auth/SignUp";
 import UserDashboard from "./private/dashboard/Main";
 import ProtectedRoute from "../_services/tsxServices/ProtectedRoute";
+import ProtectedRouteAdmin from "@/_services/tsxServices/ProtectedRouteAdmin";
+import AdminDashboard from "./private/admin/AdminDashboard";
 
 export default function App() {
   return (
@@ -19,6 +21,14 @@ export default function App() {
             <ProtectedRoute>
               <UserDashboard />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="admin"
+          element={
+            <ProtectedRouteAdmin requiredRole="admin">
+              <AdminDashboard />
+            </ProtectedRouteAdmin>
           }
         />
       </Routes>

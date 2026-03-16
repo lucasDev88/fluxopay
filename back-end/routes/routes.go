@@ -13,14 +13,28 @@ func AuthRoutes(r *gin.Engine) {
 	r.POST("/refresh", handlers.Refresh)
 	auth := r.Group("/api")
 	auth.Use(middleware.Auth())
+	{
+		// User
 		auth.GET("/me", handlers.GetUserProfile)
 		auth.PUT("/me", handlers.UpdateUserProfile)
 		auth.GET("/username", handlers.GetUsername)
 		auth.GET("/dashboard", handlers.GetUserDashboard)
+
+		// Payments
 		auth.POST("/payments", handlers.AddPayment)
 		auth.GET("/payments", handlers.ListPayments)
 		auth.DELETE("/payments/:id", handlers.DeletePayment)
+
+		// Clients
 		auth.GET("/clients", handlers.ListClients)
 		auth.POST("/clients", handlers.AddClient)
 		auth.DELETE("/clients/:id", handlers.DeleteClient)
+	}
+
+	// Admin protegido
+	admin := r.Group("/admin")
+	admin.Use(middleware.RequireRole("admin"))
+	{
+		// Rotas admin aqui
+	}
 }
