@@ -24,11 +24,13 @@ func AuthRoutes(r *gin.Engine) {
 		auth.POST("/payments", handlers.AddPayment)
 		auth.GET("/payments", handlers.ListPayments)
 		auth.DELETE("/payments/:id", handlers.DeletePayment)
+		auth.PUT("/payments/:id", handlers.UpdatePayment)
 
 		// Clients
 		auth.GET("/clients", handlers.ListClients)
 		auth.POST("/clients", handlers.AddClient)
 		auth.DELETE("/clients/:id", handlers.DeleteClient)
+		auth.PUT("/clients/:id", handlers.UpdateClient)
 	}
 
 	// Admin protegido
