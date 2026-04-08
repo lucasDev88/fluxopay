@@ -6,6 +6,7 @@ export const plans: Plan[] = [
     price: "R$0",
     desc: "Ideal para começar",
     button: "Começar grátis",
+    planId: "free",
     features: [
       "Registro de pagamentos e receitas manuais",
       "Categorias de renda",
@@ -23,6 +24,7 @@ export const plans: Plan[] = [
     desc: "Indicado para freelancers",
     highlight: false,
     button: "Assinar PRO",
+    planId: "pro",
     features: [
       "Tudo do plano Free +",
       "Previsão de renda (30 / 60 / 90 dias)",
@@ -39,6 +41,7 @@ export const plans: Plan[] = [
     price: "R$78.99",
     desc: "Escala total",
     button: "Assinar Buisness",
+    planId: "buisness",
     highlight: true,
     features: [
       "Tudo do plano Pro +",
@@ -56,6 +59,7 @@ export const plans: Plan[] = [
     price: "R$ 38,99",
     desc: "Indicado para microempreendedores",
     button: "Assinar Creator +",
+    planId: "creator-plus",
     features: [
       "Tudo do plano Pro +",
       "Tracking de múltiplas fontes de renda",
