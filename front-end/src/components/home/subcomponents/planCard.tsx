@@ -1,10 +1,13 @@
 import type { Plan } from "../types/Plan"
+import { useNavigate } from "react-router-dom"
 
 type Props = {
   plan: Plan
 }
 
 export default function PlanCard({ plan }: Props) {
+  const navigate = useNavigate()
+
   return (
     <div
       className={`rounded-2xl border p-8 h-full flex flex-col shadow-sm transition hover:shadow-xl
@@ -49,6 +52,7 @@ export default function PlanCard({ plan }: Props) {
           ? "bg-blue-500 text-white hover:bg-blue-400"
           : "bg-black text-white hover:bg-gray-800"}
         `}
+        onClick={() => navigate(`planos/${plan.id}`)}
       >
         {plan.button}
       </button>

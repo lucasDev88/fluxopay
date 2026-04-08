@@ -4,5 +4,6 @@ export type Plan = {
   desc: string
   highlight?: boolean
   button: string
+  id: string
   features: string[]
 }
