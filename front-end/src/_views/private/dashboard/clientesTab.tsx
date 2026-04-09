@@ -6,9 +6,19 @@ import { CardContent } from "@/components/utils/CardContent";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ClientForm } from "@/components/forms/ClientForm";
+import { ExportButton } from "@/components/analytics/ExportButton";
 import { useClients } from "@/_hooks/useClients";
+import { exportAndDownload, type ExportColumn, type ExportFormat } from "@/_services/export";
 import type { Clients } from "@/_services/types/Clients";
 import type { StateClient } from "@/components/home/types/State";
+
+// Column definitions for export
+const clientExportColumns: ExportColumn<Clients>[] = [
+  { key: "name", label: "Nome", width: 30 },
+  { key: "email", label: "Email", width: 40 },
+  { key: "situation", label: "Situação", width: 15 },
+  { key: "id", label: "ID", width: 20 },
+];
 
 export default function ClientsTab() {
   const { clients, loading, error, fetchClients, removeClient } = useClients();
@@ -17,6 +27,18 @@ export default function ClientsTab() {
   const [searchQuery, setSearchQuery] = useState("");
   const [confirmDelete, setConfirmDelete] = useState<{ id: string; name: string } | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+
+  // Handle export functionality
+  const handleExport = async (format: ExportFormat) => {
+    try {
+      exportAndDownload(filteredClients, clientExportColumns, format, {
+        fileName: "clientes",
+        title: "Relatório de Clientes",
+      });
+    } catch (err) {
+      console.error("[ClientsTab] Export error:", err);
+    }
+  };
 
   useEffect(() => {
     fetchClients();
@@ -79,13 +101,18 @@ export default function ClientsTab() {
           <p className="text-slate-500 mt-1">Gerencie seus clientes</p>
         </div>
 
-        <button
-          onClick={() => setOpenModal(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold transition-all shadow-lg shadow-blue-500/25"
-        >
-          <Plus className="w-4 h-4" />
-          Novo cliente
-        </button>
+        <div className="flex items-center gap-3">
+          {filteredClients.length > 0 && (
+            <ExportButton onExport={handleExport} disabled={loading} />
+          )}
+          <button
+            onClick={() => setOpenModal(true)}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold transition-all shadow-lg shadow-blue-500/25"
+          >
+            <Plus className="w-4 h-4" />
+            Novo cliente
+          </button>
+        </div>
       </div>
 
       {/* Stats Cards */}
