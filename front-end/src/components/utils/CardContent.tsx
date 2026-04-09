@@ -1,10 +1,12 @@
-import type { ReactNode } from 'react'
+import type { ReactNode } from "react";
 
 interface CardContentProps {
-  className?: string
-  children: ReactNode
+  className?: string;
+  children: ReactNode;
 }
 
 export function CardContent({ className = "", children }: CardContentProps) {
-  return <div className={`p-6 ${className}`}>{children}</div>
+  return (
+    <div className={`p-6 ${className}`}>{children}</div>
+  );
 }
