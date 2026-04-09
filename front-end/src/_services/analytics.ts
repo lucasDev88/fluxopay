@@ -1,4 +1,5 @@
 import type { TimePeriod, MultiSeriesDataPoint, Metric } from "./types/Analytics";
+import { exportData, type ExportColumn, type ExportFormat } from "./export";
 
 // Mock data for development - in production, these would be real API calls
 const mockMetrics: Metric[] = [
@@ -167,7 +168,7 @@ export async function getMetricsByPeriod(period: TimePeriod): Promise<Metric[]> 
 
 export async function exportReport(
   format: "pdf" | "csv" | "xlsx",
-  dataRange: { start: string; end: string }
+  dateRange: { start: string; end: string }
 ): Promise<Blob> {
   // In production:
   // const response = await api.post('/api/analytics/export', 
@@ -175,8 +176,30 @@ export async function exportReport(
   //   { responseType: 'blob' }
   // );
   // return response.data;
-  
-  // For demo, return a mock blob
-  const content = `Relatório FluxoPay\nPeríodo: ${dataRange.start} - ${dataRange.end}\nFormato: ${format}`;
-  return new Blob([content], { type: "text/plain" });
+
+  // Use our export utility with mock data
+  const mockExportData = mockMetrics.map((m) => ({
+    ...m,
+    formattedValue: m.format === "currency" 
+      ? m.value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+      : m.format === "percentage"
+        ? `${m.value}%`
+        : m.value.toLocaleString("pt-BR"),
+  }));
+
+  const columns: ExportColumn<typeof mockExportData[0]>[] = [
+    { key: "id", label: "Métrica", width: 20 },
+    { key: "label", label: "Descrição", width: 25 },
+    { key: "formattedValue", label: "Valor", width: 15 },
+    { key: "trendValue", label: "Variação", width: 15 },
+    { key: "format", label: "Tipo", width: 15 },
+  ];
+
+  const blob = exportData(mockExportData, columns, format as ExportFormat, {
+    fileName: "relatorio-fluxopay",
+    title: "Relatório FluxoPay",
+    dateRange,
+  });
+
+  return blob;
 }

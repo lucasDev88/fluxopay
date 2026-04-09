@@ -6,9 +6,28 @@ import { CardContent } from "@/components/utils/CardContent";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { PaymentForm } from "@/components/forms/PaymentForm";
+import { ExportButton } from "@/components/analytics/ExportButton";
 import { usePayments } from "@/_hooks/usePayments";
+import { exportAndDownload, type ExportColumn, type ExportFormat } from "@/_services/export";
 import type { Payment } from "@/_services/types/Payments";
 import type { StatePayment } from "@/components/home/types/State";
+
+// Column definitions for export
+const paymentExportColumns: ExportColumn<Payment>[] = [
+  { key: "name", label: "Nome", width: 25 },
+  { key: "description", label: "Descrição", width: 35 },
+  { 
+    key: "price", 
+    label: "Valor", 
+    width: 15,
+    formatter: (value) => {
+      const num = Number(value);
+      return isNaN(num) ? "-" : num.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+  },
+  { key: "situation", label: "Situação", width: 15 },
+  { key: "id", label: "ID", width: 20 },
+];
 
 export default function PaymentsTab() {
   const { payments, loading, error, fetchPayments, removePayment } = usePayments();
@@ -17,6 +36,18 @@ export default function PaymentsTab() {
   const [searchQuery, setSearchQuery] = useState("");
   const [confirmDelete, setConfirmDelete] = useState<{ id: string; name: string } | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+
+  // Handle export functionality
+  const handleExport = async (format: ExportFormat) => {
+    try {
+      exportAndDownload(filteredPayments, paymentExportColumns, format, {
+        fileName: "pagamentos",
+        title: "Relatório de Pagamentos",
+      });
+    } catch (err) {
+      console.error("[PaymentsTab] Export error:", err);
+    }
+  };
 
   useEffect(() => {
     fetchPayments();
@@ -73,13 +104,18 @@ export default function PaymentsTab() {
           <p className="text-slate-500 mt-1">Gerencie suas transações</p>
         </div>
 
-        <button
-          onClick={() => setOpenModal(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold transition-all shadow-lg shadow-blue-500/25"
-        >
-          <Plus className="w-4 h-4" />
-          Novo pagamento
-        </button>
+        <div className="flex items-center gap-3">
+          {filteredPayments.length > 0 && (
+            <ExportButton onExport={handleExport} disabled={loading} />
+          )}
+          <button
+            onClick={() => setOpenModal(true)}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold transition-all shadow-lg shadow-blue-500/25"
+          >
+            <Plus className="w-4 h-4" />
+            Novo pagamento
+          </button>
+        </div>
       </div>
 
       {/* Stats Cards */}
