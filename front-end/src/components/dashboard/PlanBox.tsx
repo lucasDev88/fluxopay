@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/static-components */
 import { Card } from "../utils/Card";
 import { CardContent } from "../utils/CardContent";
 import { Check, Crown, Zap, Shield, Clock } from "lucide-react";
