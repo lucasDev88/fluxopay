@@ -10,6 +10,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// validateCustomerExists checks if a customer exists for the given user
+func validateCustomerExists(customerID uint, userID string) bool {
+	var client models.Client
+	result := database.DB.Where("id = ? AND user_id = ?", customerID, userID).First(&client)
+	return result.Error == nil
+}
+
+// AddPayment creates a new payment, optionally linked to a customer
 func AddPayment(c *gin.Context) {
 
 	userIDValue, exists := c.Get("userID")
@@ -25,10 +33,11 @@ func AddPayment(c *gin.Context) {
 	}
 
 	var input struct {
-		Name      string `json:"name" binding:"required"`
-		Price     int    `json:"price" binding:"required"`
+		Name        string `json:"name" binding:"required"`
+		Price       int    `json:"price" binding:"required"`
 		Description string `json:"description"`
-		Situation string `json:"situation" binding:"required"`
+		Situation   string `json:"situation" binding:"required"`
+		CustomerID  *uint  `json:"customer_id"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -36,12 +45,21 @@ func AddPayment(c *gin.Context) {
 		return
 	}
 
+	// Validate customer exists if customerID is provided
+	if input.CustomerID != nil {
+		if !validateCustomerExists(*input.CustomerID, userID) {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "cliente não encontrado"})
+			return
+		}
+	}
+
 	payment := models.Payment{
-		UserID:    userID,
-		Name:      input.Name,
-		Price:     input.Price,
+		UserID:      userID,
+		CustomerID:  input.CustomerID,
+		Name:        input.Name,
+		Price:       input.Price,
 		Description: input.Description,
-		Situation: input.Situation,
+		Situation:   input.Situation,
 	}
 
 	if err := database.DB.Create(&payment).Error; err != nil {
@@ -138,9 +156,9 @@ func UpdatePayment(c *gin.Context) {
 	idParam := c.Param("id")
 	paymentID, err := strconv.Atoi(idParam)
 	if err != nil {
-		c.JSON( http.StatusInternalServerError, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Invalid payment ID",
-		} )
+		})
 		return
 	} // Verifica se recebe o parametro ID do pagamento.
 
@@ -149,17 +167,18 @@ func UpdatePayment(c *gin.Context) {
 		First(&models.Payment{}) // Encontra o Modelo
 
 	if result.Error != nil {
-		c.JSON( http.StatusInternalServerError, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Payment not found",
-		} )
+		})
 		return
 	} // Checa se o pagamento foi encontrado
 
-	var input struct { // Input da estrutura 
-		Name        string `json:"name" binding:"required"`
-		Price       int    `json:"price" binding:"required"`
+	var input struct { // Input da estrutura
+		Name        string `json:"name"`
+		Price       int    `json:"price"`
 		Description string `json:"description"`
-		Situation   string `json:"situation" binding:"required"`
+		Situation   string `json:"situation"`
+		CustomerID  *uint  `json:"customer_id"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil { // Checa se os dados estão válidos
@@ -167,13 +186,78 @@ func UpdatePayment(c *gin.Context) {
 		return
 	}
 
-	query :=  `UPDATE payments SET situation = $1, name = $2, price = $3, description = $4 WHERE id = $5 AND user_id = $6`
+	// Validate customer exists if customerID is provided
+	if input.CustomerID != nil {
+		if !validateCustomerExists(*input.CustomerID, userID) {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "cliente não encontrado"})
+			return
+		}
+	}
 
-	result = database.DB.Exec(query, input.Situation, input.Name, input.Price, input.Description, paymentID, userID)
+	// Build dynamic update query
+	query := "UPDATE payments SET "
+	args := []interface{}{}
+	updates := []string{}
+
+	if input.Name != "" {
+		updates = append(updates, "name = $1")
+		args = append(args, input.Name)
+	} else {
+		updates = append(updates, "name = name")
+	}
+
+	if input.Price != 0 {
+		if len(updates) == 1 {
+			updates = append(updates, "price = $2")
+		} else {
+			updates = append(updates, "price = $"+strconv.Itoa(len(args)+1))
+		}
+		args = append(args, input.Price)
+	} else {
+		updates = append(updates, "price = price")
+	}
+
+	if input.Description != "" {
+		if len(updates) == 1 {
+			updates = append(updates, "description = $3")
+		} else {
+			updates = append(updates, "description = $"+strconv.Itoa(len(args)+1))
+		}
+		args = append(args, input.Description)
+	} else {
+		updates = append(updates, "description = description")
+	}
+
+	if input.Situation != "" {
+		if len(updates) == 1 {
+			updates = append(updates, "situation = $4")
+		} else {
+			updates = append(updates, "situation = $"+strconv.Itoa(len(args)+1))
+		}
+		args = append(args, input.Situation)
+	} else {
+		updates = append(updates, "situation = situation")
+	}
+
+	if input.CustomerID != nil {
+		if len(updates) == 1 {
+			updates = append(updates, "customer_id = $5")
+		} else {
+			updates = append(updates, "customer_id = $"+strconv.Itoa(len(args)+1))
+		}
+		args = append(args, *input.CustomerID)
+	} else {
+		updates = append(updates, "customer_id = customer_id")
+	}
+
+	query += "name=name, price=price, description=description, situation=situation, customer_id=customer_id WHERE id = $" + strconv.Itoa(len(args)+1) + " AND user_id = $" + strconv.Itoa(len(args)+2)
+	args = append(args, paymentID, userID)
+
+	result = database.DB.Exec(query, args...)
 	if result.Error != nil {
-		c.JSON( http.StatusInternalServerError, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Failed to update payment",
-		} )
+		})
 		return
 	} // Faz a query pro banco de dados
 

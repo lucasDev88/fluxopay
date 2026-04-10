@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { CreditCard, Plus, Pencil, Trash2, Search, RefreshCw, ArrowUpRight, ArrowDownRight, AlertCircle, X } from "lucide-react";
+import { CreditCard, Plus, Pencil, Trash2, Search, RefreshCw, ArrowUpRight, ArrowDownRight, AlertCircle, X, User } from "lucide-react";
 import { Card } from "@/components/utils/Card";
 import { CardContent } from "@/components/utils/CardContent";
 import { StatusBadge } from "@/components/ui/StatusBadge";
@@ -26,6 +26,7 @@ const paymentExportColumns: ExportColumn<Payment>[] = [
     }
   },
   { key: "situation", label: "Situação", width: 15 },
+  { key: "customerId", label: "Cliente ID", width: 15 },
   { key: "id", label: "ID", width: 20 },
 ];
 
@@ -269,9 +270,17 @@ export default function PaymentsTab() {
                         </h3>
                         <StatusBadge status={payment.situation} size="sm" />
                       </div>
-                      <p className="text-sm text-slate-500 truncate">
-                        {payment.description || "Sem descrição"}
-                      </p>
+                      <div className="flex flex-wrap items-center gap-2 text-sm text-slate-500">
+                        <span className="truncate">
+                          {payment.description || "Sem descrição"}
+                        </span>
+                        {payment.customerId && (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 text-xs">
+                            <User className="w-3 h-3" />
+                            ID: {payment.customerId}
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     {/* Price */}
@@ -324,6 +333,7 @@ export default function PaymentsTab() {
           price: editingPayment.price,
           description: editingPayment.description,
           situation: editingPayment.situation as StatePayment,
+          customerId: editingPayment.customerId,
         } : undefined}
         onSuccess={handleFormSuccess}
       />

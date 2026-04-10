@@ -33,5 +33,5 @@ func main() {
 
 	routes.AuthRoutes(r)
 
-	r.Run()
+	r.Run(":8081")
 }

@@ -36,11 +36,11 @@ function PlanBox({ name }: PlanBoxProps) {
       hover
       className={`
         relative overflow-hidden
-        ${isPremium ? "border-blue-500/30 bg-gradient-to-br from-blue-500/10 to-purple-500/10" : "border-slate-700/50"}
+        ${isPremium ? "border-blue-500/30 bg-linear-to-br from-blue-500/10 to-purple-500/10" : "border-slate-700/50"}
       `}
     >
       {/* Decorative background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5" />
+      <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 via-transparent to-purple-500/5" />
       <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-blue-500/10 blur-2xl" />
 
       <CardContent className="relative p-6">
@@ -50,7 +50,7 @@ function PlanBox({ name }: PlanBoxProps) {
             <div
               className={`
                 p-2.5 rounded-xl
-                ${isPremium ? "bg-gradient-to-br from-blue-500 to-purple-500" : "bg-slate-800"}
+                ${isPremium ? "bg-linear-to-br from-blue-500 to-purple-500" : "bg-slate-800"}
                 border ${isPremium ? "border-blue-400/30" : "border-slate-700"}
               `}
             >
@@ -66,7 +66,7 @@ function PlanBox({ name }: PlanBoxProps) {
           </div>
 
           {isPremium && (
-            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/25">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-linear-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/25">
               Ativo
             </span>
           )}
@@ -101,7 +101,7 @@ function PlanBox({ name }: PlanBoxProps) {
           </div>
           <div className="h-2 rounded-full bg-slate-800 overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500"
+              className="h-full rounded-full bg-linear-to-r from-blue-500 to-purple-500 transition-all duration-500"
               style={{ width: "67%" }}
             />
           </div>

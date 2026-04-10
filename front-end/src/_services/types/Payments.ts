@@ -6,4 +6,7 @@ export type Payment = {
     price: number,
     description: string
     situation: StatePayment
+    customerId?: string
+    created_at?: string
+    updated_at?: string
 }
