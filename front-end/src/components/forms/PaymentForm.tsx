@@ -2,9 +2,11 @@ import { useState, useEffect, useId } from "react";
 import { motion } from "framer-motion";
 import Modal from "@/components/utils/Modal";
 import Dropdown from "@/components/utils/Dropdown";
-import { CheckCircle, Clock, XCircle, CreditCard, FileText, DollarSign } from "lucide-react";
+import SearchableSelect from "@/components/utils/SearchableSelect";
+import { CheckCircle, Clock, XCircle, CreditCard, FileText, DollarSign, User } from "lucide-react";
 import type { StatePayment } from "@/components/home/types/State";
 import { createPayment, updatePayment } from "@/_services/payments";
+import { useClients } from "@/_hooks/useClients";
 
 interface PaymentFormProps {
   open: boolean;
@@ -16,6 +18,7 @@ interface PaymentFormProps {
     price?: number;
     description?: string;
     situation?: StatePayment;
+    customerId?: string;
   };
   mode?: "create" | "edit";
 }
@@ -38,9 +41,20 @@ export function PaymentForm({
   const [price, setPrice] = useState<number | "">("");
   const [description, setDescription] = useState("");
   const [situation, setSituation] = useState<StatePayment | "">("");
+  const [customerId, setCustomerId] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [apiError, setApiError] = useState<string | null>(null);
+
+  // Fetch clients for customer selection
+  const { clients, fetchClients, loading: clientsLoading } = useClients();
+
+  // Load clients when modal opens
+  useEffect(() => {
+    if (open) {
+      fetchClients();
+    }
+  }, [open, fetchClients]);
 
   // Reset form when modal opens/closes or initialData changes
   useEffect(() => {
@@ -49,6 +63,7 @@ export function PaymentForm({
       setPrice(initialData?.price ?? "");
       setDescription(initialData?.description || "");
       setSituation(initialData?.situation || "");
+      setCustomerId(initialData?.customerId || "");
       setErrors({});
       setApiError(null);
     }
@@ -80,20 +95,18 @@ export function PaymentForm({
       setLoading(true);
       setApiError(null);
 
+      const paymentData = {
+        name,
+        price: Number(price),
+        description,
+        situation: situation as StatePayment,
+        customerId: customerId || undefined,
+      };
+
       if (mode === "edit" && initialData?.id) {
-        await updatePayment(initialData.id, {
-          name,
-          price: Number(price),
-          description,
-          situation: situation as StatePayment,
-        });
+        await updatePayment(initialData.id, paymentData);
       } else {
-        await createPayment({
-          name,
-          price: Number(price),
-          description,
-          situation: situation as StatePayment,
-        });
+        await createPayment(paymentData);
       }
 
       onSuccess?.();
@@ -283,6 +296,44 @@ export function PaymentForm({
           {errors.situation && (
             <p className="text-xs text-red-400 mt-1" role="alert">
               {errors.situation}
+            </p>
+          )}
+        </div>
+
+        {/* Customer Selection */}
+        <div className="space-y-2">
+          <span className="flex items-center gap-2 text-sm font-medium text-slate-300">
+            <User className="w-4 h-4 text-slate-500" />
+            Cliente vinculado
+            <span className="text-xs text-slate-500 font-normal">(opcional)</span>
+          </span>
+          
+          {clientsLoading ? (
+            <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-slate-400">
+              <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+              Carregando clientes...
+            </div>
+          ) : (
+            <SearchableSelect
+              value={customerId}
+              onChange={setCustomerId}
+              placeholder="Nenhum cliente vinculado"
+              emptyMessage="Nenhum cliente encontrado"
+              options={[
+                { value: "", label: "Nenhum cliente vinculado", icon: <XCircle className="w-4 h-4 text-slate-400" /> },
+                ...clients.map((client) => ({
+                  value: String(client.id),
+                  label: `${client.name} (${client.email})`,
+                  icon: <User className="w-4 h-4 text-blue-400" />,
+                })),
+              ]}
+            />
+          )}
+          
+          {customerId && (
+            <p className="text-xs text-blue-400 mt-1 flex items-center gap-1">
+              <User className="w-3 h-3" />
+              Pagamento vinculado ao cliente selecionado
             </p>
           )}
         </div>

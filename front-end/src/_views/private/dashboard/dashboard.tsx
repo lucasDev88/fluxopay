@@ -4,10 +4,13 @@ import StatCard from "@/components/dashboard/StatCard.tsx";
 import { Card } from "@/components/utils/Card";
 import { CardContent } from "@/components/utils/CardContent";
 import RecentTransactions from "@/components/dashboard/RecentTransactions";
+import Notifications from "@/components/dashboard/Notifications";
+import { getDashboardData, type DashboardData } from "@//_services/dashboard";
 
 import PlanBox from "@/components/dashboard/PlanBox";
 import ClientsChart from "@/components/dashboard/ClientesChart";
 import PaymentModal from "@/components/dashboard/PaymentsForm";
+import ClientsForm from "@/components/dashboard/ClientsForm";
 
 import { useEffect, useState } from "react";
 import { getUsername } from "../../../_services/user";
@@ -15,22 +18,59 @@ import {
   Calendar,
   Bell,
   Search,
-  Plus,
   FileText,
-  CreditCard,
   ChevronRight,
   Sparkles,
+  UserPlus,
+  Receipt,
 } from "lucide-react";
 
-export default function DashboardHome() {
+interface DashboardHomeProps {
+  onNavigate?: (tab: string) => void;
+}
+
+export default function DashboardHome({ onNavigate }: DashboardHomeProps) {
   const [username, setUsername] = useState("");
-  const [openModal, setOpenModal] = useState(false);
+  const [openPaymentModal, setOpenPaymentModal] = useState(false);
+  const [openCustomerModal, setOpenCustomerModal] = useState(false);
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Refresh data helper
 
   useEffect(() => {
     getUsername().then((data) => {
       setUsername(data.username);
     });
   }, []);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        setLoading(true);
+        const data = await getDashboardData();
+        setDashboardData(data);
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching dashboard data:", err);
+        setError("Erro ao carregar dados");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  // Calculate trend based on pending vs total
+  const getTrend = (pending: number, total: number): "up" | "down" | "neutral" => {
+    if (total === 0) return "neutral";
+    const pendingRate = (pending / total) * 100;
+    if (pendingRate < 20) return "up";
+    if (pendingRate > 50) return "down";
+    return "neutral";
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -69,7 +109,7 @@ export default function DashboardHome() {
           </div>
           <h2 className="text-3xl font-bold text-white tracking-tight">
             Dashboard <span className="text-slate-500">|</span>{" "}
-            <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-white to-slate-400 bg-clip-text text-transparent">
               {username}
             </span>
           </h2>
@@ -99,12 +139,13 @@ export default function DashboardHome() {
           </div>
 
           {/* Notifications */}
-          <button className="relative p-2.5 rounded-xl bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-white hover:border-slate-600/50 transition-all">
-            <Bell className="w-5 h-5" />
-            <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-[10px] font-bold text-white flex items-center justify-center">
-              3
-            </span>
-          </button>
+          <Notifications
+            trigger={
+              <button className="relative p-2.5 rounded-xl bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-white hover:border-slate-600/50 transition-all">
+                <Bell className="w-5 h-5" />
+              </button>
+            }
+          />
         </div>
       </motion.div>
 
@@ -113,34 +154,65 @@ export default function DashboardHome() {
         variants={itemVariants}
         className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6"
       >
-        <StatCard
-          title="Receita mensal"
-          value="R$ 192.302.394"
-          desc="+18% vs mês anterior"
-          trend="up"
-          icon="revenue"
-        />
-        <StatCard
-          title="Clientes ativos"
-          value="3.103.982"
-          desc="+12 novos hoje"
-          trend="up"
-          icon="clients"
-        />
-        <StatCard
-          title="Pagamentos"
-          value="129.381.098"
-          desc="últimos 30 dias"
-          trend="neutral"
-          icon="payments"
-        />
-        <StatCard
-          title="Falhas"
-          value="3"
-          desc="30% taxa"
-          trend="down"
-          icon="failures"
-        />
+        {loading ? (
+          // Loading skeletons
+          <>
+            {[1, 2, 3, 4].map((i) => (
+              <Card key={i} hover className="border-slate-800/50">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-slate-800 animate-pulse">
+                      <div className="w-5 h-5 bg-slate-700 rounded" />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="h-3 w-20 bg-slate-800 rounded animate-pulse" />
+                      <div className="h-5 w-32 bg-slate-800 rounded animate-pulse" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </>
+        ) : error ? (
+          // Error state
+          <div className="col-span-full flex items-center justify-center py-8">
+            <p className="text-red-400">{error}</p>
+          </div>
+        ) : (
+          // Real data
+          <>
+            <StatCard
+              title="Receita total"
+              value={dashboardData?.total_revenue 
+                ? dashboardData.total_revenue.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+                : "R$ 0,00"}
+              desc={`${dashboardData?.total_payments || 0} pagamentos`}
+              trend={dashboardData && dashboardData.pending > 0 ? "neutral" : "up"}
+              icon="revenue"
+            />
+            <StatCard
+              title="Clientes"
+              value={dashboardData?.total_clients?.toLocaleString("pt-BR") || "0"}
+              desc="total de clientes"
+              trend="up"
+              icon="clients"
+            />
+            <StatCard
+              title="Pagamentos"
+              value={dashboardData?.total_payments?.toLocaleString("pt-BR") || "0"}
+              desc={`${dashboardData?.pending || 0} pendentes`}
+              trend={getTrend(dashboardData?.pending || 0, dashboardData?.total_payments || 1)}
+              icon="payments"
+            />
+            <StatCard
+              title="Falhas"
+              value={dashboardData?.failed?.toString() || "0"}
+              desc={`${dashboardData?.total_payments ? Math.round((dashboardData.failed / dashboardData.total_payments) * 100) : 0}% taxa`}
+              trend={dashboardData?.failed && dashboardData.failed > 0 ? "down" : "up"}
+              icon="failures"
+            />
+          </>
+        )}
       </motion.div>
 
       {/* MAIN GRID */}
@@ -180,11 +252,11 @@ export default function DashboardHome() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {/* New Payment */}
               <button
-                onClick={() => setOpenModal(true)}
-                className="group flex flex-col items-center gap-3 p-5 rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 hover:border-blue-500/40 hover:from-blue-500/20 hover:to-blue-600/10 transition-all duration-200"
+                onClick={() => setOpenPaymentModal(true)}
+                className="group flex flex-col items-center gap-3 p-5 rounded-xl bg-linear-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 hover:border-blue-500/40 hover:from-blue-500/20 hover:to-blue-600/10 transition-all duration-200"
               >
-                <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform">
-                  <Plus className="w-5 h-5 text-white" />
+                <div className="p-3 rounded-xl bg-linear-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform">
+                  <Receipt className="w-5 h-5 text-white" />
                 </div>
                 <div className="text-center">
                   <p className="font-medium text-white text-sm">Novo pagamento</p>
@@ -192,25 +264,31 @@ export default function DashboardHome() {
                 </div>
               </button>
 
-              {/* Create Charge */}
-              <button className="group flex flex-col items-center gap-3 p-5 rounded-xl bg-slate-800/30 border border-slate-700/30 hover:border-slate-600/50 hover:bg-slate-800/50 transition-all duration-200">
-                <div className="p-3 rounded-xl bg-slate-700 group-hover:bg-slate-600 shadow-lg shadow-black/20 group-hover:scale-110 transition-transform">
-                  <CreditCard className="w-5 h-5 text-slate-300" />
+              {/* Add Customer */}
+              <button
+                onClick={() => setOpenCustomerModal(true)}
+                className="group flex flex-col items-center gap-3 p-5 rounded-xl bg-slate-800/30 border border-slate-700/30 hover:border-slate-600/50 hover:bg-slate-800/50 transition-all duration-200"
+              >
+                <div className="p-3 rounded-xl bg-linear-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform">
+                  <UserPlus className="w-5 h-5 text-white" />
                 </div>
                 <div className="text-center">
-                  <p className="font-medium text-white text-sm">Criar cobrança</p>
-                  <p className="text-xs text-slate-500 mt-0.5">PIX, boleto, etc</p>
+                  <p className="font-medium text-white text-sm">Novo cliente</p>
+                  <p className="text-xs text-slate-500 mt-0.5">Adicionar cliente</p>
                 </div>
               </button>
 
-              {/* Export Report */}
-              <button className="group flex flex-col items-center gap-3 p-5 rounded-xl bg-slate-800/30 border border-slate-700/30 hover:border-slate-600/50 hover:bg-slate-800/50 transition-all duration-200">
-                <div className="p-3 rounded-xl bg-slate-700 group-hover:bg-slate-600 shadow-lg shadow-black/20 group-hover:scale-110 transition-transform">
-                  <FileText className="w-5 h-5 text-slate-300" />
+              {/* View Reports */}
+              <button
+                onClick={() => onNavigate?.("relatorios")}
+                className="group flex flex-col items-center gap-3 p-5 rounded-xl bg-slate-800/30 border border-slate-700/30 hover:border-slate-600/50 hover:bg-slate-800/50 transition-all duration-200"
+              >
+                <div className="p-3 rounded-xl bg-linear-to-br from-purple-500 to-purple-600 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform">
+                  <FileText className="w-5 h-5 text-white" />
                 </div>
                 <div className="text-center">
-                  <p className="font-medium text-white text-sm">Exportar</p>
-                  <p className="text-xs text-slate-500 mt-0.5">Gerar relatório</p>
+                  <p className="font-medium text-white text-sm">Relatórios</p>
+                  <p className="text-xs text-slate-500 mt-0.5">Ver Analytics</p>
                 </div>
               </button>
             </div>
@@ -226,12 +304,32 @@ export default function DashboardHome() {
         </Card>
       </motion.div>
 
-      {/* MODAL */}
+      {/* MODALS */}
       <PaymentModal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        onCreated={() => {
-          console.log("Pagamento criado — atualizar lista depois");
+        open={openPaymentModal}
+        onClose={() => setOpenPaymentModal(false)}
+        onCreated={async () => {
+          // Refresh dashboard data after creating payment
+          try {
+            const data = await getDashboardData();
+            setDashboardData(data);
+          } catch (err) {
+            console.error("Error refreshing dashboard:", err);
+          }
+        }}
+      />
+
+      <ClientsForm
+        open={openCustomerModal}
+        onClose={() => setOpenCustomerModal(false)}
+        onCreated={async () => {
+          // Refresh dashboard data after creating customer
+          try {
+            const data = await getDashboardData();
+            setDashboardData(data);
+          } catch (err) {
+            console.error("Error refreshing dashboard:", err);
+          }
         }}
       />
     </motion.div>

@@ -1,5 +1,6 @@
 import "../../style/App.css";
 import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
 import {
   BarChart3,
   Users,
@@ -12,6 +13,7 @@ import {
   Bell,
   HelpCircle,
 } from "lucide-react";
+import { getUsername } from "../../_services/user";
 
 interface UserSidebarProps {
   setTab: (tab: string) => void;
@@ -28,10 +30,35 @@ const navItems = [
 
 function UserSidebar({ setTab }: UserSidebarProps) {
   const [activeTab, setActiveTab] = React.useState("dashboard");
+  const [userData, setUserData] = useState({ username: "", email: "" });
+
+  useEffect(() => {
+    getUsername().then((data) => {
+      setUserData({
+        username: data.username || data.name || "Usuário",
+        email: data.email || "usuario@fluxopay.com",
+      });
+    }).catch(() => {
+      setUserData({
+        username: "Admin",
+        email: "admin@fluxopay.com",
+      });
+    });
+  }, []);
 
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId);
     setTab(tabId);
+  };
+
+  // Get initials for avatar
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
   };
 
   return (
@@ -134,13 +161,13 @@ function UserSidebar({ setTab }: UserSidebarProps) {
         <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/30 mb-3">
           <div className="relative">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
-              <span className="text-sm font-bold text-white">AS</span>
+              <span className="text-sm font-bold text-white">{getInitials(userData.username)}</span>
             </div>
             <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-900" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-white truncate">Admin Sistema</p>
-            <p className="text-xs text-slate-500 truncate">admin@fluxopay.com</p>
+            <p className="text-sm font-medium text-white truncate">{userData.username}</p>
+            <p className="text-xs text-slate-500 truncate">{userData.email}</p>
           </div>
         </div>
 
@@ -154,7 +181,5 @@ function UserSidebar({ setTab }: UserSidebarProps) {
   );
 }
 
-// Import React for useState
-import React from "react";
 
 export default UserSidebar;

@@ -89,7 +89,6 @@ export default function Modal({
               text-white rounded-2xl 
               border border-slate-700/50 
               shadow-2xl shadow-black/50
-              overflow-hidden
             `}
           >
             {/* Decorative top border */}
@@ -117,7 +116,7 @@ export default function Modal({
             )}
 
             {/* Body */}
-            <div className={`${title ? "px-6" : "p-6"}`}>
+            <div className={`${title ? "px-6" : "p-6"} overflow-y-auto max-h-[70vh]`}>
               {children}
             </div>
 

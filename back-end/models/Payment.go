@@ -12,8 +12,11 @@ type Payment struct {
 	// user id stored as uuid string to match User.ID
 	UserID string `gorm:"type:uuid;not null;index" json:"user_id"`
 
-	Name  string `gorm:"type:varchar(100);not null" json:"name"`
-	Price int    `gorm:"not null" json:"price"`
+	// CustomerID links payment to a client (uint matches Client.ID)
+	CustomerID *uint `gorm:"index" json:"customer_id"`
+
+	Name        string `gorm:"type:varchar(100);not null" json:"name"`
+	Price       int    `gorm:"not null" json:"price"`
 	Description string `gorm:"type:varchar(100);" json:"description"`
 
 	Situation string `gorm:"type:varchar(50);not null" json:"situation"`

@@ -8,6 +8,7 @@ export default function Dropdown({
 }: DropdownProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -19,8 +20,16 @@ export default function Dropdown({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Handle wheel events to enable smooth scrolling
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (scrollRef.current) {
+      e.stopPropagation();
+      scrollRef.current.scrollTop += e.deltaY;
+    }
+  };
+
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block" ref={ref}>
       <div onClick={() => setOpen(!open)} className="cursor-pointer">
         {trigger}
       </div>
@@ -29,7 +38,11 @@ export default function Dropdown({
         <div
           className={`absolute w-full mt-2 rounded-2xl shadow-xl bg-slate-600 z-50 ${align === "right" ? "right-0" : "left-0"}`}
         >
-          <div className="py-2 w-full">
+          <div 
+            ref={scrollRef}
+            onWheel={handleWheel}
+            className="py-2 w-full max-h-60 overflow-y-auto scrollbar-thin"
+          >
             {items.map((item, index) => (
               <button
                 key={index}
