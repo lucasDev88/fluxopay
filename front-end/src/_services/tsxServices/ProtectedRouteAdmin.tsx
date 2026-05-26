@@ -1,3 +1,5 @@
+// ProtectedRouteAdmin
+
 import { Navigate } from "react-router-dom"
 import { getUserFromToken } from "../auth"
 

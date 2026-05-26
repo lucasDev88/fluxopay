@@ -96,9 +96,19 @@ export async function createPayment(data: PaymentData) {
   return res.data
 }
 
+import { supabase } from "@/_services/supabase";
+
 export async function getPayments() {
-  const res = await api.get("/api/payments")
-  return res.data
+  const { data, error } = await supabase
+    .from("payments")
+    .select("*");
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return data;
 }
 
 export async function deletePayment(id: string) {

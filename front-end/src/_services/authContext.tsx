@@ -1,11 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { api } from "./api" // seu axios
 
 export type AuthCtx = {
   logged: boolean
   setLogged: (v: boolean) => void
   loading: boolean
+  logout: () => void
 }
 
 
@@ -14,10 +16,18 @@ export const AuthContext = createContext<AuthCtx | null>(null)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [logged, setLogged] = useState(false)
   const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
+
+  const logout = () => {
+    localStorage.removeItem("access")
+    localStorage.removeItem("refresh")
+    setLogged(false)
+    navigate("/login")
+  }
 
   useEffect(() => {
     async function verifyToken() {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("access")
 
       if (!token) {
         setLogged(false)
@@ -34,7 +44,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         setLogged(true)
       } catch {
-        localStorage.removeItem("token")
+        localStorage.removeItem("access")
+        localStorage.removeItem("refresh")
         setLogged(false)
       } finally {
         setLoading(false)
@@ -45,7 +56,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ logged, setLogged, loading }}>
+    <AuthContext.Provider value={{ logged, setLogged, loading, logout }}>
       {children}
     </AuthContext.Provider>
   )

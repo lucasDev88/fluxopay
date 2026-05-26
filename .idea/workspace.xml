@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cd0ca5c3-5ebc-4822-b7b1-2274096291be" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/controllers/Client.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/controllers/Payments.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/controllers/auth.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/controllers/refresh.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/controllers/user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/database/database.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/middleware/auth.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/middleware/role.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/models/Client.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/models/Payment.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/models/User.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/routes/routes.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/services/userServices.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/utils/hash.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/utils/jwt.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_services/analytics.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_services/analytics.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_services/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_services/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_services/authContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_services/authContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_services/tsxServices/AuthProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_services/tsxServices/AuthProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_services/tsxServices/ProtectedRouteAdmin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_services/tsxServices/ProtectedRouteAdmin.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_views/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_views/app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_views/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_views/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_views/private/admin/AdminDashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_views/private/admin/AdminDashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_views/private/admin/AdminPlans.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_views/private/admin/AdminPlatform.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_views/private/admin/AdminPlatform.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_views/private/admin/AdminTransaction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_views/private/admin/AdminTransaction.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_views/private/admin/AdminUsers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_views/private/admin/AdminUsers.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_views/private/dashboard/Main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_views/private/dashboard/Main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/_views/private/dashboard/relatoriosTab.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/_views/private/dashboard/relatoriosTab.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/dashboard/AdminSidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/dashboard/AdminSidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/dashboard/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/dashboard/Sidebar.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="3D59nrTvFku8aopIUuqhoQybh5W" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "refactor/frontend/RefactoredDashboardCode",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cd0ca5c3-5ebc-4822-b7b1-2274096291be" name="Changes" comment="" />
+      <created>1777561238925</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1777561238925</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
