@@ -10,7 +10,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-MVP%20In%20Development-blue" />
-  <img src="https://img.shields.io/badge/backend-Go-green" />
+  <img src="https://img.shields.io/badge/backend-Java-green" />
   <img src="https://img.shields.io/badge/frontend-React-blue" />
   <img src="https://img.shields.io/badge/database-PostgreSQL-blue" />
   <img src="https://img.shields.io/badge/license-Private-black" />
