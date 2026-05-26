@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db.iggydsknyqmmxbhxbwnt.supabase.co:5432/postgres?sslmode=require
+    username: postgres
+    password: FLUxoPAY2026
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+jwt:
+  secret: fluxoapysecretjwtlwkdlknsalkwndksnalwdnnwlkdn
+  expiration: 86400000
+  refresh-expiration: 604800000
+
+server:
+  port: ${PORT:8080}
