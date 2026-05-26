@@ -1,6 +1,9 @@
+// Sidebar component for user dashboard
+
 import "../../style/App.css";
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   BarChart3,
   Users,
@@ -14,6 +17,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import { getUsername } from "../../_services/user";
+import { useAuth } from "../../_services/authContext";
 
 interface UserSidebarProps {
   setTab: (tab: string) => void;
@@ -25,12 +29,18 @@ const navItems = [
   { id: "pagamentos", label: "Pagamentos", icon: CreditCard },
   { id: "relatorios", label: "Relatórios", icon: TrendingUp },
   { id: "settings", label: "Configurações", icon: Settings },
-  { id: "admin", label: "Administrador", icon: Briefcase },
+];
+
+const supportItems = [
+  { id: "notificacoes", label: "Notificações", icon: Bell },
+  { id: "ajuda", label: "Ajuda", icon: HelpCircle },
 ];
 
 function UserSidebar({ setTab }: UserSidebarProps) {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = React.useState("dashboard");
   const [userData, setUserData] = useState({ username: "", email: "" });
+  const { logout } = useAuth();
 
   useEffect(() => {
     getUsername().then((data) => {
@@ -51,6 +61,10 @@ function UserSidebar({ setTab }: UserSidebarProps) {
     setTab(tabId);
   };
 
+  const handleAdminClick = () => {
+    navigate("/admin");
+  };
+
   // Get initials for avatar
   const getInitials = (name: string) => {
     return name
@@ -62,12 +76,12 @@ function UserSidebar({ setTab }: UserSidebarProps) {
   };
 
   return (
-    <div className="w-72 min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 text-white flex flex-col border-r border-slate-800/50">
+    <div className="w-72 min-h-screen bg-linear-to-b from-slate-950 to-slate-900 text-white flex flex-col border-r border-slate-800/50">
       {/* Logo */}
       <div className="p-6">
         <div className="flex items-center gap-3">
           <div className="relative">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25">
+            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25">
               <BarChart3 className="w-5 h-5 text-white" />
             </div>
             <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-950" />
@@ -99,7 +113,7 @@ function UserSidebar({ setTab }: UserSidebarProps) {
                     transition-all duration-200 group
                     ${
                       isActive
-                        ? "bg-gradient-to-r from-blue-500/20 to-blue-600/10 text-white border border-blue-500/20"
+                        ? "bg-linear-to-r from-blue-500/20 to-blue-600/10 text-white border border-blue-500/20"
                         : "text-slate-400 hover:text-white hover:bg-slate-800/50 border border-transparent"
                     }
                   `}
@@ -108,7 +122,7 @@ function UserSidebar({ setTab }: UserSidebarProps) {
                   {isActive && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full bg-gradient-to-b from-blue-400 to-blue-600"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full bg-linear-to-b from-blue-400 to-blue-600"
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
                   )}
@@ -134,23 +148,64 @@ function UserSidebar({ setTab }: UserSidebarProps) {
           </nav>
         </div>
 
+        {/* Admin Button */}
+        <div>
+          <p className="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
+            Admin
+          </p>
+          <button
+            onClick={handleAdminClick}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-violet-400 hover:text-violet-300 hover:bg-violet-500/10 border border-transparent hover:border-violet-500/20 transition-all duration-200 group"
+          >
+            <Briefcase className="w-5 h-5" />
+            <span className="font-medium">Administrador</span>
+          </button>
+        </div>
+
         {/* Secondary Navigation */}
         <div>
           <p className="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
             Suporte
           </p>
           <nav className="space-y-1">
-            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/50 border border-transparent transition-all duration-200 group">
-              <Bell className="w-5 h-5 text-slate-500 group-hover:text-slate-300" />
-              <span className="font-medium">Notificações</span>
-              <span className="ml-auto px-2 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-400">
-                3
-              </span>
-            </button>
-            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/50 border border-transparent transition-all duration-200 group">
-              <HelpCircle className="w-5 h-5 text-slate-500 group-hover:text-slate-300" />
-              <span className="font-medium">Ajuda</span>
-            </button>
+            {supportItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleTabChange(item.id)}
+                  className={`
+                    relative w-full flex items-center gap-3 px-4 py-3 rounded-xl
+                    transition-all duration-200 group
+                    ${
+                      isActive
+                        ? "bg-linear-to-r from-blue-500/20 to-blue-600/10 text-white border border-blue-500/20"
+                        : "text-slate-400 hover:text-white hover:bg-slate-800/50 border border-transparent"
+                    }
+                  `}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTabSupport"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full bg-linear-to-b from-blue-400 to-blue-600"
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
+
+                  <Icon
+                    className={`
+                      w-5 h-5 transition-colors
+                      ${isActive ? "text-blue-400" : "text-slate-500 group-hover:text-slate-300"}
+                    `}
+                  />
+                  <span className={`font-medium ${isActive ? "text-white" : ""}`}>
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
           </nav>
         </div>
       </div>
@@ -160,7 +215,7 @@ function UserSidebar({ setTab }: UserSidebarProps) {
         {/* User info */}
         <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/30 mb-3">
           <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-linear-to-br from-blue-500 to-purple-500 flex items-center justify-center">
               <span className="text-sm font-bold text-white">{getInitials(userData.username)}</span>
             </div>
             <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-900" />
@@ -172,7 +227,12 @@ function UserSidebar({ setTab }: UserSidebarProps) {
         </div>
 
         {/* Logout */}
-        <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all duration-200 group">
+        <button 
+          onClick={() => {
+            logout();
+          }}
+          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all duration-200 group"
+        >
           <LogOut className="w-5 h-5" />
           <span className="font-medium">Sair da conta</span>
         </button>

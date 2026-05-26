@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   Shield,
   Users,
-  CreditCard,
   TrendingUp,
   LogOut,
   BarChart3,
@@ -21,7 +20,6 @@ interface AdminSidebarProps {
 const navItems = [
   { id: "admin-dashboard", label: "Visão geral", icon: BarChart3 },
   { id: "admin-users", label: "Usuários", icon: Users },
-  { id: "admin-plans", label: "Planos", icon: CreditCard },
   { id: "admin-transactions", label: "Transações", icon: TrendingUp },
   { id: "admin-platform", label: "Plataforma", icon: Server },
 ];
@@ -40,7 +38,7 @@ function AdminSidebar({ setTab }: AdminSidebarProps) {
       <div className="p-6">
         <div className="flex items-center gap-3">
           <div className="relative">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/25">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-violet-500/25">
               <Shield className="w-5 h-5 text-white" />
             </div>
             <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-red-500 border-2 border-slate-950 animate-pulse" />
@@ -48,8 +46,8 @@ function AdminSidebar({ setTab }: AdminSidebarProps) {
           <div>
             <h1 className="text-xl font-bold tracking-tight">FluxoPay</h1>
             <div className="flex items-center gap-1.5">
-              <Activity className="w-3 h-3 text-red-400" />
-              <p className="text-xs text-red-400 font-medium">Admin Mode</p>
+              <Activity className="w-3 h-3 text-violet-400" />
+              <p className="text-xs text-violet-400 font-medium">Admin Mode</p>
             </div>
           </div>
         </div>
@@ -75,7 +73,7 @@ function AdminSidebar({ setTab }: AdminSidebarProps) {
                     transition-all duration-200 group
                     ${
                       isActive
-                        ? "bg-gradient-to-r from-purple-500/20 to-pink-500/10 text-white border border-purple-500/20"
+                        ? "bg-gradient-to-r from-violet-500/20 to-purple-500/10 text-white border border-violet-500/20"
                         : "text-slate-400 hover:text-white hover:bg-slate-800/50 border border-transparent"
                     }
                   `}
@@ -83,7 +81,7 @@ function AdminSidebar({ setTab }: AdminSidebarProps) {
                   {isActive && (
                     <motion.div
                       layoutId="activeAdminTab"
-                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full bg-gradient-to-b from-purple-400 to-pink-500"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full bg-gradient-to-b from-violet-400 to-purple-500"
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
                   )}
@@ -91,7 +89,7 @@ function AdminSidebar({ setTab }: AdminSidebarProps) {
                   <Icon
                     className={`
                       w-5 h-5 transition-colors
-                      ${isActive ? "text-purple-400" : "text-slate-500 group-hover:text-slate-300"}
+                      ${isActive ? "text-violet-400" : "text-slate-500 group-hover:text-slate-300"}
                     `}
                   />
                   <span className={`font-medium ${isActive ? "text-white" : ""}`}>
@@ -100,7 +98,7 @@ function AdminSidebar({ setTab }: AdminSidebarProps) {
 
                   {isActive && (
                     <div className="ml-auto">
-                      <div className="w-2 h-2 rounded-full bg-purple-400" />
+                      <div className="w-2 h-2 rounded-full bg-violet-400" />
                     </div>
                   )}
                 </button>
